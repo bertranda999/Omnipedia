@@ -147,8 +147,10 @@ sorttable = {
 	        for (var j=0; j<rows.length; j++) {
 	          row_array[row_array.length] = [sorttable.getInnerText(rows[j].cells[col]), rows[j]];
 	        }
+			if (this.className.search(/\bsort_a\b/) != -1){
 	        /* If you want a stable sort, uncomment the following line */
-	        sorttable.shaker_sort(row_array, this.sorttable_sortfunction);
+	        sorttable.shaker_sort_a(row_array, this.sorttable_sortfunction);}
+			else{sorttable.shaker_sort(row_array, this.sorttable_sortfunction);}
 			
 	        /* and comment out this one */
 	        //row_array.sort(this.sorttable_sortfunction);
@@ -324,6 +326,37 @@ sorttable = {
 
         for(var i = t; i > b; --i) {
             if ( comp_func(list[i], list[i-1]) > 0 ) {
+                var q = list[i]; list[i] = list[i-1]; list[i-1] = q;
+                swap = true;
+            }
+        } // for
+        b++;
+
+    } // while(swap)
+  },
+
+  shaker_sort_a: function(list, comp_func) {
+    // A stable sort function to allow multi-level sorting of data
+    // see: http://en.wikipedia.org/wiki/Cocktail_sort
+    // thanks to Joseph Nahmias
+    var b = 0;
+    var t = list.length - 1;
+    var swap = true;
+
+    while(swap) {
+        swap = false;
+        for(var i = b; i < t; ++i) {
+            if ( comp_func(list[i], list[i+1]) > 0 ) {
+                var q = list[i]; list[i] = list[i+1]; list[i+1] = q;
+                swap = true;
+            }
+        } // for
+        t--;
+
+        if (!swap) break;
+
+        for(var i = t; i > b; --i) {
+            if ( comp_func(list[i], list[i-1]) < 0 ) {
                 var q = list[i]; list[i] = list[i-1]; list[i-1] = q;
                 swap = true;
             }
