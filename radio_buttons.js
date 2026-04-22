@@ -1,3 +1,68 @@
+let playerName = 'Player Name'
+nameType = 'Name_Effect_None'
+
+function updatePlayerName() {
+    nameEffectElement = document.getElementById('name-effect-element')
+    if (nameEffectElement != null) {
+        nameEffectElement.remove()
+    }
+    if (nameType == 'Name_Effect_None') {
+        nameElement = document.getElementById('playername')
+        newElement = document.createElement('span')
+        newElement.setAttribute('id', 'name-effect-element')
+        newElement.append(playerName)
+        nameElement.append(newElement)
+
+    }
+    else if (nameType == 'Ripple') {
+        newElement = document.createElement('span')
+        newElement.setAttribute('id', 'name-effect-element')
+        newElement.setAttribute('class', 'title-ripple')
+        newElement.setAttribute('style', 'font-weight:bold;')
+
+
+
+
+        for (const [index, char] of [...playerName].entries()) {
+            if (char == ' ') {
+                newElement.append(' ')
+                continue
+            }
+            charElement = document.createElement('span')
+            charElement.setAttribute('class', 'title-ripple-char')
+            charElement.setAttribute('style', 'animation-delay:' + 8 * index / 100 + 's')
+            charElement.append(char)
+            newElement.append(charElement)
+        }
+
+        nameElement = document.getElementById('playername')
+        nameElement.append(newElement)
+    }
+
+    previewElement = document.getElementById('ripple-preview')
+    previewElement.remove()
+    newPreviewElement = document.createElement('span')
+    newPreviewElement.setAttribute('id', 'ripple-preview')
+    newPreviewElement.setAttribute('style', 'font-weight:bold;')
+
+    for (const [index, char] of [...playerName].entries()) {
+        if (char == ' ') {
+            newPreviewElement.append(' ')
+            continue
+        }
+
+        previewCharElement = document.createElement('span')
+        previewCharElement.setAttribute('class', 'title-ripple-char')
+        previewCharElement.setAttribute('style', 'animation-delay:' + 8 * index / 100 + 's')
+        previewCharElement.append(char)
+        newPreviewElement.append(previewCharElement)
+    }
+
+    previewLabelElement = document.getElementById('Ripple-label')
+    previewLabelElement.append(newPreviewElement)
+
+}
+
 const radioGroups = document.querySelectorAll('[data-group]');
 console.log("Script")
 console.log(radioGroups.length)
@@ -48,6 +113,17 @@ radioGroups.forEach(group => {
 
 
             }
+            else if (this.checked && this.getAttribute('name') == 'name-effect') {
+
+                nameType = this.getAttribute('id')
+                updatePlayerName()
+            }
         })
     })
+})
+
+const playerNameInput = document.getElementById('player-name-input')
+playerNameInput.addEventListener('input', function () {
+    playerName = this.value
+    updatePlayerName()
 })
