@@ -1,8 +1,6 @@
 let playerName = 'Player Name'
 nameType = 'Name_Effect_None'
 
-legionName = 'Legion Name'
-
 function updatePlayerName() {
     nameEffectElement = document.getElementById('name-effect-element')
     if (nameEffectElement != null) {
@@ -74,6 +72,22 @@ radioGroups.forEach(group => {
     console.log(radioGroups.length)
 
     groupButtons.forEach(button => {
+        let id = button.getAttribute('id')
+        if (button.getAttribute('name') == 'shield' && id != 'Shield_None') {
+
+            sliderElement = document.getElementById(id + '-slider')
+            sliderElement.addEventListener('input', function (event) {
+                imageElement = document.getElementById(id + '-image')
+                imageElement.setAttribute('style', 'filter: brightness(' + event.target.value + '%);')
+
+                shieldElement = document.getElementById('shield')
+                if (shieldElement && shieldElement.getAttribute('data-type') == id) {
+                    newElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + event.target.value + '%);')
+                }
+            })
+
+        }
+
         button.addEventListener('change', function () {
             if (this.checked && this.getAttribute('name') == 'design') {
                 displayElementId = 'display-' + group['data-group']
@@ -91,16 +105,21 @@ radioGroups.forEach(group => {
                 }
                 else if (shieldElement != null) {
                     shieldElement.setAttribute('src', this.getAttribute('data-img'))
+                    sliderElement = document.getElementById(id + '-slider')
+                    shieldElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + sliderElement.value + '%);')
+
                 }
                 else {
 
                     //blankShield = document.getElementById('blank-shield')
                     //blankShield.remove()
+                    sliderElement = document.getElementById(id + '-slider')
                     newElement = document.createElement('img')
-                    newElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(150%);')
+                    newElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + sliderElement.value + '%);')
                     newElement.setAttribute('width', '350')
                     newElement.setAttribute('src', this.getAttribute('data-img'))
                     newElement.setAttribute('id', 'shield')
+                    newElement.setAttribute('data-type', id)
                     const wrapper = document.getElementById('flair-effect-wrapper')
                     wrapper.after(newElement)
 
@@ -142,11 +161,21 @@ playerNameInput.addEventListener('input', function () {
     updatePlayerName()
 })
 
+function updateLegion() {
+    element = document.getElementById('legion-name')
+    nameElement = document.getElementById('legion-name-input')
+    memberElement = document.getElementById('member-count')
+    element.innerText = nameElement.value + ' (' + memberElement.value + ') '
+
+}
+
 const legionNameInput = document.getElementById('legion-name-input')
 legionNameInput.addEventListener('input', function () {
-    legionName = this.value
-    element = document.getElementById('legion-name')
-    element.innerText = legionName + ' (60)'
-    console.log('trying')
+    updateLegion()
 
+})
+
+const memberCountInput = document.getElementById('member-count')
+memberCountInput.addEventListener('input', function () {
+    updateLegion()
 })
