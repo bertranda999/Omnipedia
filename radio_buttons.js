@@ -113,6 +113,25 @@ radioGroups.forEach(group => {
                 nameType = this.getAttribute('id')
                 updatePlayerName()
             }
+            else if (this.checked && this.getAttribute('name') == 'ship-effect') {
+                // <div class=\"flair-effect-overlay\" style=\"position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 133px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(&quot;https://galaxylegion1-1faae.kxcdn.com/images/ships/abyssiod-right.png&quot;); mask-size: 100% 100%; mask-repeat: no-repeat;\"></div><style id=\"flair-effect-styles\">@keyframes flair-goldshimmer {   			0% { background-position: -200% 0; }   			20% { background-position: 100% 0; }   			100% { background-position: 100% 0; }   		}   </style>
+
+                if (this.getAttribute('id') == 'Ship_Effect_None') {
+                    element = document.getElementById('ship-effect')
+                    element.remove()
+                }
+                else {
+                    newElement = document.createElement('div')
+                    newElement.setAttribute('id', 'ship-effect')
+                    newElement.setAttribute('class', 'flair-effect-overlay')
+                    newElement.setAttribute('style', 'position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 133px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(\"https://galaxylegion1-1faae.kxcdn.com/images/ships/abyssiod-right.png\"); mask-size: 100% 100%; mask-repeat: no-repeat;')
+
+                    shipImgElement = document.getElementById('shipimg')
+                    shipImgElement.after(newElement)
+
+                }
+
+            }
         })
     })
 })
