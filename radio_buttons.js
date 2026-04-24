@@ -82,10 +82,23 @@ radioGroups.forEach(group => {
 
                 shieldElement = document.getElementById('shield')
                 if (shieldElement && shieldElement.getAttribute('data-type') == id) {
-                    newElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + event.target.value + '%);')
+                    shieldElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + event.target.value + '%);')
                 }
             })
 
+        }
+        else if (button.getAttribute('name') == 'name-frame' && id != 'name-frame-none') {
+            sliderElement = document.getElementById(id + '-slider')
+            sliderElement.addEventListener('input', function (event) {
+                previewElement = document.getElementById('preview-' + id)
+                previewElement.setAttribute('style', 'filter:hue-rotate(' + this.value + 'deg)')
+
+                other = document.getElementById('name-frame')
+                if (other && other.getAttribute('data-frame') == id) {
+
+                    other.setAttribute('style', button.getAttribute('data-style') + 'filter: hue-rotate(' + this.value + 'deg);')
+                }
+            })
         }
 
         button.addEventListener('change', function () {
@@ -115,7 +128,7 @@ radioGroups.forEach(group => {
                     shieldElement.setAttribute('src', this.getAttribute('data-img'))
                     sliderElement = document.getElementById(id + '-slider')
                     shieldElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + sliderElement.value + '%);')
-
+                    shieldElement.setAttribute('data-type', id)
                 }
                 else {
 
@@ -159,6 +172,40 @@ radioGroups.forEach(group => {
                 }
 
             }
+            else if (this.checked && this.getAttribute('name') == 'title') {
+                existingTitle = document.getElementById('title')
+                if (existingTitle) {
+                    existingTitle.remove()
+                }
+                if (this.getAttribute('id') != 'title_none') {
+                    // < div style =\"font-size: 14px;\"><span style=\"font-style:italic; font-weight:bold; color:#999999;\">the Dark One</span></div>
+                    newElement = document.createElement('div')
+                    newElement.setAttribute('id', 'title')
+                    newElement.setAttribute('style', this.getAttribute('data-style'))
+                    newElement.innerText = this.getAttribute('data-title')
+
+                    rankElement = document.getElementById('rank-div')
+                    rankElement.before(newElement)
+                }
+            }
+            else if (this.checked && this.getAttribute('name') == 'name-frame') {
+                existingNameFrame = document.getElementById('name-frame')
+                if (existingNameFrame) {
+                    existingNameFrame.remove()
+                }
+
+                if (this.getAttribute('id') != 'name-frame-none') {
+                    sliderElement = document.getElementById(id + '-slider')
+                    newElement = document.createElement('img')
+                    newElement.setAttribute('id', 'name-frame')
+                    newElement.setAttribute('style', this.getAttribute('data-style') + 'filter: hue-rotate(' + sliderElement.value + 'deg);')
+                    newElement.setAttribute('src', this.getAttribute('data-img'))
+                    newElement.setAttribute('data-frame', id)
+
+                    nameElement = document.getElementById('name-effect-element')
+                    nameElement.before(newElement)
+                }
+            }
         })
     })
 })
@@ -187,3 +234,27 @@ const memberCountInput = document.getElementById('member-count')
 memberCountInput.addEventListener('input', function () {
     updateLegion()
 })
+
+const rankInput = document.getElementById('rank-input')
+rankInput.addEventListener('input', function () {
+    rankElement = document.getElementById('rank')
+    rank.innerText = 'Rank ' + this.value
+})
+
+const raceInput = document.getElementById('race-input')
+const professionInput = document.getElementById('profession-input')
+function updateRaceProfession() {
+
+    raceElement = document.getElementById('race')
+    race.innerText = ' ' + raceInput.value + ' ' + professionInput.value
+
+}
+
+raceInput.addEventListener('input', function () {
+    updateRaceProfession()
+})
+
+professionInput.addEventListener('input', function () {
+    updateRaceProfession()
+})
+
