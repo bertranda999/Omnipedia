@@ -64,16 +64,16 @@ function updatePlayerName() {
 }
 
 const radioGroups = document.querySelectorAll('[data-group]');
-console.log("Script")
-console.log(radioGroups.length)
+
+
 radioGroups.forEach(group => {
 
     const groupButtons = document.querySelectorAll('input[name=' + group.getAttribute('data-group') + ']')
-    console.log(radioGroups.length)
+
 
     groupButtons.forEach(button => {
         let id = button.getAttribute('id')
-        if (button.getAttribute('name') == 'shield' && id != 'Shield_None') {
+        if (button.getAttribute('name') == 'shield' && id != 'Shield_None' && id != 'Shield_default') {
 
             sliderElement = document.getElementById(id + '-slider')
             sliderElement.addEventListener('input', function (event) {
@@ -82,7 +82,7 @@ radioGroups.forEach(group => {
 
                 shieldElement = document.getElementById('shield')
                 if (shieldElement && shieldElement.getAttribute('data-type') == id) {
-                    shieldElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + event.target.value + '%);')
+                    shieldElement.setAttribute('style', 'width: 350; position:absolute; left: 0px; top: 0px; z-index:2; pointer-events:none; filter:brightness(' + event.target.value + '%);')
                 }
             })
 
@@ -106,7 +106,7 @@ radioGroups.forEach(group => {
                 displayElementId = 'display-' + group['data-group']
                 document.getElementById('shipimg').setAttribute('src', this.getAttribute('data-img'))
                 flairOverlay = document.getElementsByClassName('flair-effect-overlay')
-                console.log(this.getAttribute('data-img'))
+
                 if (flairOverlay.length > 0) {
                     flairOverlay[0].setAttribute('style', 'position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 122px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(\"' + this.getAttribute('data-img') + '\"); mask-size: 100% 100%; mask-repeat: no-repeat;')
                 }
@@ -117,33 +117,56 @@ radioGroups.forEach(group => {
                 shimmerImgElement = document.getElementById('auric-shimmer-img')
                 shimmerImgElement.setAttribute('src', this.getAttribute('data-img'))
 
+
+                defaultShieldData = document.getElementById('Shield_default')
+                console.log('1')
+                shieldElement = document.getElementById('shield')
+                if (defaultShieldData.checked && this.hasAttribute('data-shield')) {
+                    shieldElement.setAttribute('src', this.getAttribute('data-shield'))
+
+                    shieldElement.setAttribute('style', 'position:absolute; left: 20px; top: 30px; z-index:2; width: 270')
+                    console.log('2')
+                    shieldElement.setAttribute('data-type', id)
+                    shieldElement.hidden = false
+
+                }
+                console.log('3')
+
+                defaultShieldCell = document.getElementById('default-shield-cell')
+                if (this.hasAttribute('data-shield')) {
+                    defaultShieldPreview = document.getElementById('default-shield-preview')
+                    defaultShieldPreview.setAttribute('src', this.getAttribute('data-shield'))
+                    defaultShieldData.setAttribute('data-img', this.getAttribute('data-shield'))
+                    console.log('4')
+                    defaultShieldCell.hidden = false
+                }
+                else {
+                    console.log('5')
+                    defaultShieldCell.hidden = true
+                    if (defaultShieldData.checked) {
+                        shieldElement.hidden = true
+                        document.getElementById('Shield_None').checked = true
+                    }
+                }
+
             }
             else if (this.checked && this.getAttribute('name') == 'shield') {
                 shieldElement = document.getElementById('shield')
                 if (this.getAttribute('id') == 'Shield_None') {
-                    shieldElement.remove()
+                    shieldElement.hidden = true
 
-                }
-                else if (shieldElement != null) {
-                    shieldElement.setAttribute('src', this.getAttribute('data-img'))
-                    sliderElement = document.getElementById(id + '-slider')
-                    shieldElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + sliderElement.value + '%);')
-                    shieldElement.setAttribute('data-type', id)
                 }
                 else {
-
-                    //blankShield = document.getElementById('blank-shield')
-                    //blankShield.remove()
+                    shieldElement.setAttribute('src', this.getAttribute('data-img'))
                     sliderElement = document.getElementById(id + '-slider')
-                    newElement = document.createElement('img')
-                    newElement.setAttribute('style', 'position:absolute; left: 40px; top: 50px; z-index:2; pointer-events:none; filter:brightness(' + sliderElement.value + '%);')
-                    newElement.setAttribute('width', '350')
-                    newElement.setAttribute('src', this.getAttribute('data-img'))
-                    newElement.setAttribute('id', 'shield')
-                    newElement.setAttribute('data-type', id)
-                    const wrapper = document.getElementById('flair-effect-wrapper')
-                    wrapper.after(newElement)
-
+                    if (sliderElement) {
+                        shieldElement.setAttribute('style', 'width: 350;position:absolute; left: 0px; top: 0px; z-index:2; pointer-events:none; filter:brightness(' + sliderElement.value + '%);')
+                    }
+                    else {
+                        shieldElement.setAttribute('style', 'position:absolute; left: 20px; top: 30px; z-index:2; width: 270')
+                    }
+                    shieldElement.setAttribute('data-type', id)
+                    shieldElement.hidden = false
                 }
 
 
@@ -258,3 +281,30 @@ professionInput.addEventListener('input', function () {
     updateRaceProfession()
 })
 
+const tabs = document.querySelectorAll('[data-tab]')
+function openTab(event, name) {
+
+    tabs.forEach(tab => {
+        if (tab.getAttribute('data-tab') != name) {
+            htmlTab = document.getElementById(this.id)
+
+            tab.hidden = true
+        }
+        else {
+            htmlTab = document.getElementById(this.id)
+            tab.hidden = false
+        }
+    })
+}
+
+const ceruleanCheckbox = document.getElementById('cerulean-checkbox')
+ceruleanCheckbox.addEventListener('click', function () {
+    fighter = document.getElementById('cerulean')
+    fighter.hidden = !ceruleanCheckbox.checked
+})
+
+const nightclawCheckbox = document.getElementById('nightclaw-checkbox')
+nightclawCheckbox.addEventListener('click', function () {
+    fighter = document.getElementById('nightclaw')
+    fighter.hidden = !nightclawCheckbox.checked
+})
