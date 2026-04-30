@@ -205,7 +205,8 @@ radioGroups.forEach(group => {
                     newElement = document.createElement('div')
                     newElement.setAttribute('id', 'title')
                     newElement.setAttribute('style', this.getAttribute('data-style'))
-                    newElement.innerText = this.getAttribute('data-title')
+                    //newElement.innerText = this.getAttribute('data-title')
+                    newElement.innerHTML = document.getElementById('label-' + this.getAttribute('data-title')).innerHTML
 
                     rankElement = document.getElementById('rank-div')
                     rankElement.before(newElement)
