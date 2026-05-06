@@ -13,7 +13,10 @@ async function loadRemoteJSON() {
         data = await response.json();
         console.log(data[0]);
         influenceInput.max = data.length - 1
+
+
         influenceInput.value = 0
+        influenceInput.dispatchEvent(new Event('input', { bubbles: true }));
     } catch (error) {
         console.error("Could not load JSON:", error);
     }
@@ -65,4 +68,3 @@ influenceInput.addEventListener('input', function (event) {
         }
     }
 })
-
