@@ -77,8 +77,9 @@ filterInput.addEventListener('input', function (event) {
             optionElement.innerHTML = "<span class=\"button\"/>" + structure['name']
             optionElement.setAttribute('class', 'structure-button')
             optionElement.addEventListener('click', function (event) {
-                structuresDiv.innerHTML += "<br>" + structure['name']
-                if (hasEnoughSpace(structure['size'])) {
+
+                if (hasEnoughSpace(structure['size']) && belowLimit(structure)) {
+                    structuresDiv.innerHTML += "<br>" + structure['name']
                     activeStructures.push(structure)
                 } else {
                     console.log('not enough space')
