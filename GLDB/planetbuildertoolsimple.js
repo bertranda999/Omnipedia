@@ -122,6 +122,27 @@ function hasEnoughSpace(needed) {
     return needed <= totalSpace - spaceUsed
 }
 
+function belowLimit(structure) {
+    let base = structure['name']
+    if (Object.hasOwn(structure, 'base')) {
+        base = structure['base']
+    }
+
+    let count = 0
+    activeStructures.forEach(checkStructure => {
+        let checkBase = checkStructure['name']
+        if (Object.hasOwn(checkStructure, 'base')) {
+            checkBase = checkStructure['base']
+        }
+
+        if (checkBase == base) {
+            ++count;
+        }
+    })
+
+    return count < structure['limit']
+}
+
 function availabilityLevel(value) {
     for (let i = 0; i < availability.length; ++i) {
         if (value == availability[i]) {
@@ -223,7 +244,7 @@ async function loadRemoteJSON() {
             optionElement.setAttribute('class', 'structure-button')
             optionElement.addEventListener('click', function (event) {
 
-                if (hasEnoughSpace(structure['size'])) {
+                if (hasEnoughSpace(structure['size']) && belowLimit(structure)) {
                     structuresDiv.innerHTML += "<br>" + structure['name']
                     activeStructures.push(structure)
                 } else {
