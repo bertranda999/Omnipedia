@@ -1,0 +1,59 @@
+<head>
+    <script type="text/javascript" charset="utf8" src="./planetbuildertoolsimple.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<h2>Planet Builder</h2>
+<div>
+    <span>Space: <input type="number" id="space-input" min="0" max="300" value="69"></span>
+    <span>Artifact Availability: <select id="artifact-availability-input"></select></span>
+    <span>Mining Availability: <select id="mining-availability-input"></select></span>
+    <span>Research Availability: <select id="research-availability-input"></select></span>
+    <span>Influence Availability: <select id="influence-availability-input"></select></span>
+    <span>Fully Developed? <input type="checkbox" id="fully-developed" checked></span>
+</div>
+<div id="builder">
+    <div>
+        <input type="text" maxlength="30" id="filter-input"><br>
+        <div style="float: left; height: 500; width: 300; overflow-y: auto">
+            <style>
+                [role="option"] {
+                    position: relative;
+                    display: block;
+                    margin: 2px;
+                    padding: 2px 1em 2px 1.5em;
+                    line-height: 1.8em;
+                    cursor: pointer;
+                }
+
+                [role="listbox"]:focus [role="option"].focused,
+                [role="option"]:hover {
+                    outline: 2px solid currentcolor;
+                }
+            </style>
+            <ul role="listbox" id="artifact-list">
+            </ul>
+        </div>
+        <div style="margin-left: 20; float: left; height: 500; width: 300; overflow-y: auto">
+            <span id="structures-label">Structures (0 Space Used)</span>
+            <span id="structures"></span>
+        </div>
+        <div style="margin-left: 20;">
+            <span>Artifact Stats</span><br>
+            <span id="arti-stats"></span><br>
+            <span>Mining Stats</span><br>
+            <span id="min-stats"></span><br>
+            <span>Research Stats</span><br>
+            <span id="res-stats"></span><br>
+            <span>Influence Stats</span><br>
+            <span id="inf-stats"></span><br>
+            <span>Cloak Stats</span><br>
+            <span id="cl-stats"></span><br>
+            <span>Population Stats</span><br>
+            <span id="pop-stats"></span><br>
+            <span>Attack Stats</span><br>
+            <span id="at-stats"></span><br>
+            <span>Defense Stats</span><br>
+            <span id="def-stats"></span><br>
+        </div>
+    </div>
+</div>
