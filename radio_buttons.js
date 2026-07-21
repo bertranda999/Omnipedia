@@ -108,11 +108,11 @@ radioGroups.forEach(group => {
                 flairOverlay = document.getElementsByClassName('flair-effect-overlay')
 
                 if (flairOverlay.length > 0) {
-                    flairOverlay[0].setAttribute('style', 'position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 122px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(\"' + this.getAttribute('data-img') + '\"); mask-size: 100% 100%; mask-repeat: no-repeat;')
+                    flairOverlay[0].setAttribute('style', 'position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 122px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(\'' + this.getAttribute('data-img') + '\'); mask-size: 100% 100%; mask-repeat: no-repeat;')
                 }
 
                 shimmerElement = document.getElementById('auric-shimmer-preview')
-                shimmerElement.setAttribute('style', 'position: absolute; top: 0;left: 0;width: 100%;height: 100%;background: linear-gradient(115deg, transparent 35%, rgba(255,215,0,0.3) 45%, rgba(255,255,200,0.5) 50%, rgba(255,215,0,0.3) 55%, transparent 65%);background-size:300% 100%;pointer-events:none;animation:efp-ec474304 11s linear infinite;-webkit-mask-image:url(' + this.getAttribute('data-img') + ');mask-image:url(' + this.getAttribute('data-img') + ');-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;')
+                shimmerElement.setAttribute('style', 'position: absolute; top: 0;left: 0;width: 100%;height: 100%;background: linear-gradient(115deg, transparent 35%, rgba(255,215,0,0.3) 45%, rgba(255,255,200,0.5) 50%, rgba(255,215,0,0.3) 55%, transparent 65%);background-size:300% 100%;pointer-events:none;animation:efp-ec474304 11s linear infinite;-webkit-mask-image:url(\'' + this.getAttribute('data-img') + '\');mask-image:url(\'' + this.getAttribute('data-img') + '\');-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;')
 
                 shimmerImgElement = document.getElementById('auric-shimmer-img')
                 shimmerImgElement.setAttribute('src', this.getAttribute('data-img'))
@@ -187,7 +187,7 @@ radioGroups.forEach(group => {
                     newElement = document.createElement('div')
                     newElement.setAttribute('id', 'ship-effect')
                     newElement.setAttribute('class', 'flair-effect-overlay')
-                    newElement.setAttribute('style', 'position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 133px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(\"' + document.getElementById('shipimg').getAttribute('src') + '\"); mask-size: 100% 100%; mask-repeat: no-repeat;')
+                    newElement.setAttribute('style', 'position: absolute; pointer-events: none; z-index: 10; left: 40px; top: 40px; width: 250px; height: 133px; background: linear-gradient(115deg, transparent 35%, rgba(255, 215, 0, 0.3) 45%, rgba(255, 255, 200, 0.5) 50%, rgba(255, 215, 0, 0.3) 55%, transparent 65%) 0% 0% / 300% 100%; animation: 11s linear 0s infinite normal none running flair-goldshimmer; mask-image: url(\'' + document.getElementById('shipimg').getAttribute('src') + '\'); mask-size: 100% 100%; mask-repeat: no-repeat;')
 
                     shipImgElement = document.getElementById('shipimg')
                     shipImgElement.after(newElement)
