@@ -1,5 +1,5 @@
 body {
-    background: url('https://galaxylegion1-1faae.kxcdn.com/images/bg/farbackground.jpg') repeat 20% 20%;
+    background: url('https://static.galaxylegion.com/images/bg/farbackground.jpg') repeat 20% 20%;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
@@ -8,7 +8,7 @@ body {
 }
 
 a:link {
-    color: white
+    color: blue
 }
 
 a:visited {
