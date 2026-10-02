@@ -125,3 +125,18 @@ seasonal1Input.addEventListener('input', function (event) {
 seasonal2Input.addEventListener('input', function (event) {
     updateCouncilors()
 })
+
+const minusBtn = document.getElementById('minus-btn');
+const plusBtn = document.getElementById('plus-btn');
+
+// Plus button click
+plusBtn.addEventListener('click', () => {
+    influenceInput.stepUp();
+    updateCurrentCost();
+});
+
+// Minus button click
+minusBtn.addEventListener('click', () => {
+    influenceInput.stepDown();
+    updateCurrentCost();
+});
