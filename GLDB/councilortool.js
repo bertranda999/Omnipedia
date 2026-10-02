@@ -133,10 +133,14 @@ const plusBtn = document.getElementById('plus-btn');
 plusBtn.addEventListener('click', () => {
     influenceInput.stepUp();
     updateCurrentCost();
+
+    updateCouncilors()
 });
 
 // Minus button click
 minusBtn.addEventListener('click', () => {
     influenceInput.stepDown();
     updateCurrentCost();
+
+    updateCouncilors()
 });
